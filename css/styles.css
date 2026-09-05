@@ -1,0 +1,175 @@
+/* ========================================================= */
+/* GURUJI VPN - CUSTOM STYLES & SAAS DARK GREEN PALETTE      */
+/* ========================================================= */
+
+* {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #06281E;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+/* Background Gradients & Atmospheric Mint Auras */
+.hero-bg {
+    background:
+        radial-gradient(circle at 50% 12%, rgba(0, 213, 165, 0.20) 0%, rgba(16, 185, 129, 0.12) 35%, transparent 68%),
+        radial-gradient(circle at 85% 25%, rgba(0, 213, 165, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 15% 35%, rgba(5, 150, 105, 0.10) 0%, transparent 42%),
+        linear-gradient(180deg, #ffffff 0%, #F2FBF7 100%);
+}
+
+.map-bg {
+    opacity: 0.14;
+    background-image: radial-gradient(#00D5A5 1.5px, transparent 1.5px);
+    background-size: 14px 14px;
+}
+
+/* Header & Hero High-Visibility Action Buttons (Dark Green Theme) */
+.nav-header-container {
+    background-color: #06281E !important;
+    border: 1px solid rgba(0, 213, 165, 0.25) !important;
+}
+
+.btn-header-login {
+    background-color: #ffffff !important;
+    color: #06281E !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 9999px !important;
+    padding: 8px 18px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(6, 40, 30, 0.25) !important;
+}
+.btn-header-login:hover {
+    background-color: #E6F8F3 !important;
+    color: #031A13 !important;
+    transform: translateY(-1px);
+}
+
+.btn-header-signup {
+    background: linear-gradient(135deg, #00D5A5 0%, #10B981 100%) !important;
+    color: #031A13 !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    border-radius: 9999px !important;
+    padding: 8px 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 14px rgba(0, 213, 165, 0.45) !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+}
+.btn-header-signup:hover {
+    background: linear-gradient(135deg, #24f1c3 0%, #059669 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 213, 165, 0.6) !important;
+}
+
+.btn-hero-primary {
+    background-color: #06281E !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    border-radius: 9999px !important;
+    padding: 14px 28px !important;
+    box-shadow: 0 10px 25px rgba(6, 40, 30, 0.3) !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid rgba(0, 213, 165, 0.2) !important;
+}
+.btn-hero-primary:hover {
+    background-color: #031A13 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(6, 40, 30, 0.4) !important;
+}
+
+.btn-hero-secondary {
+    background-color: #ffffff !important;
+    color: #06281E !important;
+    border: 2px solid #00D5A5 !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    border-radius: 9999px !important;
+    padding: 13px 26px !important;
+    box-shadow: 0 4px 12px rgba(0, 213, 165, 0.12) !important;
+    transition: all 0.2s ease !important;
+}
+.btn-hero-secondary:hover {
+    background-color: #E6F8F3 !important;
+    border-color: #059669 !important;
+    transform: translateY(-2px);
+}
+
+/* Elevation Shadows */
+.soft-shadow {
+    box-shadow: 0 10px 35px rgba(6, 40, 30, 0.06), 0 4px 12px rgba(0, 213, 165, 0.05);
+}
+
+.pricing-shadow {
+    box-shadow: 0 12px 35px rgba(6, 40, 30, 0.07);
+}
+
+.pricing-shadow-active {
+    box-shadow: 0 20px 45px rgba(0, 213, 165, 0.25), 0 0 0 2px rgba(0, 213, 165, 0.45);
+}
+
+.device-shadow {
+    box-shadow: 0 25px 50px -12px rgba(6, 40, 30, 0.35), 0 0 30px rgba(0, 213, 165, 0.2);
+}
+
+.modal-shadow {
+    box-shadow: 0 25px 60px -15px rgba(6, 40, 30, 0.35);
+}
+
+/* Connecting Lines */
+.line-dash {
+    border-top: 2px dashed #92E6CD;
+}
+
+/* Pulse animation for active VPN status */
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}
+
+.pulse-active {
+    position: relative;
+}
+
+.pulse-active::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    background-color: rgba(0, 213, 165, 0.4);
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    z-index: 0;
+}
+
+/* Code block highlight scrollbar */
+pre::-webkit-scrollbar {
+    height: 6px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: #0F4838;
+    border-radius: 4px;
+}

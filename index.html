@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Guruji VPN - Secure. Private. Limitless Internet.</title>
+    <meta name="description" content="Connect to our private network using Tailscale VPN and browse the internet through our optimized exit nodes.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: "#00D5A5",
+                            50: "#F0FDF9",
+                            100: "#CCFBF1",
+                            200: "#99F6E4",
+                            300: "#92E6CD",
+                            400: "#52D4B1",
+                            500: "#00D5A5",
+                            600: "#05B28A",
+                            700: "#068E6F",
+                            800: "#065F46",
+                            900: "#044E3A"
+                        },
+                        mint: {
+                            DEFAULT: "#00D5A5",
+                            50: "#F2FBF7",
+                            100: "#E6F8F3",
+                            200: "#C4F1E3",
+                            300: "#92E6CD",
+                            400: "#52D4B1",
+                            500: "#00D5A5",
+                            600: "#05B28A",
+                            700: "#068E6F",
+                            800: "#097159",
+                            900: "#0A5D4A"
+                        },
+                        dark: {
+                            DEFAULT: "#06281E",
+                            card: "#111827",
+                            lighter: "#1E293B"
+                        },
+                        obsidian: "#06281E",
+                        muted: "#64748B"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        * {
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            color: #06281E;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .hero-bg {
+            background:
+                radial-gradient(circle at 50% 12%, rgba(0, 213, 165, 0.18) 0%, rgba(45, 212, 191, 0.10) 35%, transparent 68%),
+                radial-gradient(circle at 85% 25%, rgba(0, 213, 165, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 15% 35%, rgba(45, 212, 191, 0.09) 0%, transparent 42%),
+                linear-gradient(180deg, #ffffff 0%, #F5FCFA 100%);
+        }
+
+        .map-bg {
+            opacity: 0.12;
+            background-image: radial-gradient(#00D5A5 1.5px, transparent 1.5px);
+            background-size: 14px 14px;
+        }
+
+        .soft-shadow {
+            box-shadow: 0 10px 35px rgba(11, 23, 30, 0.05), 0 4px 12px rgba(0, 213, 165, 0.04);
+        }
+
+        .pricing-shadow {
+            box-shadow: 0 12px 35px rgba(11, 23, 30, 0.06);
+        }
+
+        .pricing-shadow-active {
+            box-shadow:
+                0 20px 45px rgba(0, 213, 165, 0.20),
+                0 0 0 1px rgba(0, 213, 165, 0.35);
+        }
+
+        .device-shadow {
+            box-shadow:
+                0 25px 50px -12px rgba(11, 15, 23, 0.25),
+                0 0 30px rgba(0, 213, 165, 0.15);
+        }
+
+        .line-dash {
+            border-top: 2px dashed #92E6CD;
+        }
+
+        pre::-webkit-scrollbar {
+            height: 5px;
+        }
+        pre::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-[#06281E]">
+
+<!-- ========================================================= -->
+<!-- NAVBAR (Sleek Floating Pill Navbar) -->
+<!-- ========================================================= -->
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 pt-4 pb-2">
+    <div class="max-w-6xl mx-auto px-5 lg:px-6 h-16 sm:h-18 rounded-full bg-[#06281E] border border-white/15 shadow-2xl shadow-black/35 flex items-center justify-between text-white" style="background-color: #06281E !important;">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-300 flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition transform">
+                <svg width="20" height="24" viewBox="0 0 24 28" fill="none">
+                    <path d="M12 1L21 5V13C21 19 17.5 24 12 27C6.5 24 3 19 3 13V5L12 1Z" fill="#06281E" />
+                    <path d="M12 5V21" stroke="#00D5A5" stroke-width="2.5" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight">
+                    Guruji <span class="text-emerald-400">VPN</span>
+                </div>
+                <div class="text-[10px] text-slate-400 -mt-0.5 font-normal">
+                    Powered by Tailscale
+                </div>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-slate-200">
+            <a href="#home" class="nav-item text-emerald-400 font-bold transition py-1 relative">
+                Home
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-emerald-400 rounded-full"></span>
+            </a>
+            <a href="#how-it-works" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                How It Works
+            </a>
+            <a href="#plans" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                Plans
+            </a>
+            <a href="#features" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                Features
+            </a>
+            <a href="#docs" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                Docs
+            </a>
+            <a href="#dashboard" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                Dashboard
+            </a>
+            <a href="#support" class="nav-item text-slate-200 hover:text-emerald-400 transition py-1 font-medium">
+                Support
+            </a>
+        </nav>
+
+        <!-- Auth Action Buttons (Guaranteed Visibility) -->
+        <div class="flex items-center gap-3">
+            <button
+                onclick="openAuthModal('login')"
+                class="btn-header-login hidden sm:inline-flex"
+            >
+                Log In
+            </button>
+            <button
+                onclick="openAuthModal('signup')"
+                class="btn-header-signup inline-flex"
+            >
+                Sign Up
+            </button>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button id="mobile-toggle-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-full text-white bg-white/15 hover:bg-white/25 border border-white/25 transition" aria-label="Toggle menu">
+                <svg id="menu-icon-bars" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="menu-icon-close" class="w-5 h-5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mt-2 bg-[#06281E] backdrop-blur-xl border border-white/15 rounded-3xl p-5 space-y-3 shadow-2xl text-white" style="background-color: #06281E !important;">
+        <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-emerald-400 font-semibold hover:bg-white/5">Home</a>
+        <a href="#how-it-works" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">How It Works</a>
+        <a href="#plans" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">Plans</a>
+        <a href="#features" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">Features</a>
+        <a href="#docs" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">Docs</a>
+        <a href="#dashboard" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">Dashboard</a>
+        <a href="#support" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5">Support</a>
+        <div class="pt-3 border-t border-white/15 flex gap-2.5">
+            <button onclick="toggleMobileMenu(); openAuthModal('login')" class="btn-header-login flex-1 text-center justify-center">Log In</button>
+            <button onclick="toggleMobileMenu(); openAuthModal('signup')" class="btn-header-signup flex-1 text-center justify-center">Sign Up</button>
+        </div>
+    </div>
+</header>
+
+
+<!-- ========================================================= -->
+<!-- HERO SECTION -->
+<!-- ========================================================= -->
+<section id="home" class="hero-bg pt-32 pb-20 md:pt-38 md:pb-24 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+            <!-- LEFT -->
+            <div>
+                <!-- Live Network Status Pill (SaaS Pill Style) -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6F8F3] border border-[#A7F3D0] text-[#065F46] text-xs font-semibold mb-6 shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>All 5 Exit Nodes Operational</span>
+                    <span class="text-emerald-300">•</span>
+                    <span class="text-slate-500 font-normal">99.99% Mesh SLA</span>
+                </div>
+
+                <h1 class="text-4xl md:text-5xl lg:text-[54px] leading-[1.12] font-extrabold tracking-tight text-slate-900">
+                    Secure. Private.<br>
+                    Limitless <span class="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent">Internet.</span>
+                </h1>
+
+                <p class="mt-7 max-w-xl text-[16px] leading-7 text-slate-600">
+                    Connect to our private network using Tailscale VPN
+                    and browse the internet through our optimized
+                    exit nodes with zero logging and top-tier WireGuard speed.
+                </p>
+
+                <!-- Buttons (Matching Reference Design Pill Buttons) -->
+                <div class="mt-8 flex flex-wrap items-center gap-3.5">
+                    <a
+                        href="#plans"
+                        class="btn-hero-primary inline-flex items-center gap-2.5"
+                    >
+                        <span>Get Started Now</span>
+                        <span class="text-lg text-emerald-400 font-bold">→</span>
+                    </a>
+
+                    <a
+                        href="#docs"
+                        class="btn-hero-secondary inline-flex items-center gap-2.5"
+                    >
+                        <span>View Documentation</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="text-emerald-600">
+                            <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="2.2" />
+                            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2.2" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Features Highlights (Mint Rounded Badges) -->
+                <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-200/70">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-full bg-[#E6F8F3] border border-[#A7F3D0]/60 flex items-center justify-center text-emerald-600 flex-shrink-0 text-base">
+                            🔒
+                        </div>
+                        <span class="text-xs font-semibold text-slate-700 leading-tight">
+                            End-to-end<br><span class="text-slate-500 font-normal">Encrypted</span>
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-full bg-[#E6F8F3] border border-[#A7F3D0]/60 flex items-center justify-center text-emerald-600 text-base flex-shrink-0">
+                            ⚡
+                        </div>
+                        <span class="text-xs font-semibold text-slate-700 leading-tight">
+                            Blazing Fast<br><span class="text-slate-500 font-normal">Connections</span>
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-full bg-[#E6F8F3] border border-[#A7F3D0]/60 flex items-center justify-center text-emerald-600 flex-shrink-0 text-base">
+                            🌐
+                        </div>
+                        <span class="text-xs font-semibold text-slate-700 leading-tight">
+                            Optimized<br><span class="text-slate-500 font-normal">Exit Nodes</span>
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-full bg-[#E6F8F3] border border-[#A7F3D0]/60 flex items-center justify-center text-emerald-600 flex-shrink-0 text-base">
+                            🎧
+                        </div>
+                        <span class="text-xs font-semibold text-slate-700 leading-tight">
+                            24/7<br><span class="text-slate-500 font-normal">Support</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT ILLUSTRATION -->
+            <div class="relative h-[430px] hidden lg:block select-none">
+                <!-- Dot map -->
+                <div class="absolute inset-0 map-bg rounded-full"></div>
+
+                <!-- Internet Node -->
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 z-20">
+                    <div class="bg-white rounded-2xl px-7 py-3.5 soft-shadow text-center border border-emerald-100/80 flex items-center gap-2.5">
+                        <div class="text-2xl">🌐</div>
+                        <div class="text-left">
+                            <div class="font-bold text-xs text-slate-900">Internet</div>
+                            <div class="text-[10px] text-slate-400 font-mono">Global Mesh</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Central Encrypted Gateway Badge -->
+                <div class="absolute top-[115px] left-1/2 -translate-x-1/2 z-20">
+                    <div class="bg-[#06281E] text-white border border-emerald-500/40 px-5 py-2 rounded-full shadow-xl shadow-emerald-950/20 font-semibold flex items-center gap-2 text-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>🛡️ Guruji Encrypted Tunnel</span>
+                    </div>
+                </div>
+
+                <!-- Connection lines -->
+                <div class="absolute top-16 left-1/2 w-0 h-14 border-l-2 border-dashed border-emerald-400 -translate-x-1/2"></div>
+                <div class="absolute top-40 left-1/2 w-0 h-14 border-l-2 border-dashed border-emerald-400 -translate-x-1/2"></div>
+                <div class="absolute top-36 left-[20%] w-[28%] border-t-2 border-dashed border-emerald-400 rotate-[-12deg]"></div>
+                <div class="absolute top-36 right-[20%] w-[28%] border-t-2 border-dashed border-emerald-400 rotate-[12deg]"></div>
+
+                <!-- Exit Node Card -->
+                <div class="absolute top-44 left-0 z-20">
+                    <div class="bg-white rounded-2xl px-6 py-4 soft-shadow text-center border border-emerald-100/80 transition transform hover:scale-105">
+                        <div id="hero-node-flag" class="text-2xl">🇮🇳</div>
+                        <div class="font-bold text-xs mt-1.5 text-slate-800">Exit Node</div>
+                        <div id="hero-node-name" class="text-[11px] font-bold text-emerald-600 mt-0.5">India (Mumbai)</div>
+                    </div>
+                </div>
+
+                <!-- Device Card -->
+                <div class="absolute top-44 right-0 z-20">
+                    <div class="bg-white rounded-2xl px-6 py-4 soft-shadow text-center border border-emerald-100/80 transition transform hover:scale-105">
+                        <div class="text-2xl">📱</div>
+                        <div class="font-bold text-xs mt-1.5 text-slate-800">Your Device</div>
+                        <div id="hero-device-status" class="text-[11px] font-bold text-emerald-600 mt-0.5">Connected</div>
+                    </div>
+                </div>
+
+                <!-- Laptop Mockup -->
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-20">
+                    <div class="relative">
+                        <div class="w-[290px] h-[185px] bg-[#06281E] rounded-t-2xl p-2.5 device-shadow border-t border-x border-slate-800">
+                            <div class="w-full h-full bg-white rounded-xl flex flex-col items-center justify-center p-2.5">
+                                <div id="hero-laptop-badge" class="w-11 h-11 rounded-full border-2 border-emerald-500 bg-emerald-50 flex items-center justify-center text-emerald-600 text-2xl font-bold">
+                                    ✓
+                                </div>
+                                <div id="hero-laptop-status" class="font-bold text-sm mt-1 text-slate-900">
+                                    Connected
+                                </div>
+                                <div class="text-[11px] text-slate-500 mt-0.5">
+                                    Private • Secure • Unlimited
+                                </div>
+                                <button
+                                    onclick="runSpeedTestDiagnostic()"
+                                    class="mt-1.5 px-3 py-1 rounded-full bg-[#E6F8F3] hover:bg-[#d5f5ec] text-emerald-800 text-[10px] font-bold transition flex items-center gap-1 border border-[#A7F3D0]"
+                                >
+                                    <span>⚡</span>
+                                    <span id="hero-speed-label">Test Speed: 185 Mbps</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-[340px] h-3 bg-slate-400 rounded-b-xl mx-auto shadow-md border-t border-slate-300"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- HOW IT WORKS -->
+<!-- ========================================================= -->
+<section id="how-it-works" class="py-20 bg-[#F7FCFA] border-t border-emerald-100/60">
+    <div class="max-w-6xl mx-auto px-5">
+
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold mb-3">
+                <span>⚡ Easy 4-Step Setup</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                How It Works
+            </h2>
+            <p class="mt-3 text-slate-600">
+                Get started in just a few simple steps and enjoy lightning fast browsing.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8 mt-14">
+
+            <!-- 1 -->
+            <div class="text-center relative">
+                <div class="mx-auto w-20 h-20 rounded-2xl bg-white border border-emerald-100 flex items-center justify-center text-3xl shadow-sm text-emerald-600">
+                    ↓
+                </div>
+                <div class="mt-4 inline-flex w-7 h-7 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs items-center justify-center font-bold shadow-sm">
+                    1
+                </div>
+                <h3 class="font-bold mt-3 text-slate-900 text-base">
+                    Create Account & Install
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Sign up on Tailscale with your Gmail and download the app on your device.
+                </p>
+                <a href="#tailscale-guide" class="inline-block text-xs font-semibold text-emerald-600 hover:text-emerald-700 mt-2.5">
+                    Account steps →
+                </a>
+            </div>
+
+            <!-- 2 -->
+            <div class="text-center">
+                <div class="mx-auto w-20 h-20 rounded-2xl bg-white border border-emerald-100 flex items-center justify-center text-3xl shadow-sm text-emerald-600">
+                    ✉
+                </div>
+                <div class="mt-4 inline-flex w-7 h-7 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs items-center justify-center font-bold shadow-sm">
+                    2
+                </div>
+                <h3 class="font-bold mt-3 text-slate-900 text-base">
+                    Sign Up on Guruji
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Sign up with the same Gmail account on our website.
+                </p>
+            </div>
+
+            <!-- 3 -->
+            <div class="text-center">
+                <div class="mx-auto w-20 h-20 rounded-2xl bg-white border border-emerald-100 flex items-center justify-center text-3xl shadow-sm text-emerald-600">
+                    💳
+                </div>
+                <div class="mt-4 inline-flex w-7 h-7 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs items-center justify-center font-bold shadow-sm">
+                    3
+                </div>
+                <h3 class="font-bold mt-3 text-slate-900 text-base">
+                    Choose a Plan
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Select a plan and complete your payment via Card, UPI or Crypto.
+                </p>
+            </div>
+
+            <!-- 4 -->
+            <div class="text-center">
+                <div class="mx-auto w-20 h-20 rounded-2xl bg-white border border-emerald-100 flex items-center justify-center text-3xl shadow-sm text-emerald-600">
+                    ✓
+                </div>
+                <div class="mt-4 inline-flex w-7 h-7 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs items-center justify-center font-bold shadow-sm">
+                    4
+                </div>
+                <h3 class="font-bold mt-3 text-slate-900 text-base">
+                    Connect & Browse
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Select Guruji exit node in Tailscale app and enjoy secure browsing!
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- PRICING & PLANS -->
+<!-- ========================================================= -->
+<section id="plans" class="py-20 bg-white border-t border-slate-100">
+    <div class="max-w-6xl mx-auto px-5">
+
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6F8F3] border border-[#A7F3D0] text-[#065F46] text-xs font-semibold mb-3">
+                <span>💎 Flexible Subscriptions</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                Simple, Transparent Pricing
+            </h2>
+            <p class="mt-3 text-slate-600">
+                Choose the plan that works best for your privacy and browsing needs.
+            </p>
+
+            <!-- Interactive Billing Cycle Switcher -->
+            <div class="mt-8 inline-flex items-center p-1.5 bg-slate-100 rounded-full border border-slate-200">
+                <button
+                    id="billing-monthly-btn"
+                    onclick="switchBillingCycle('monthly')"
+                    class="px-5 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#06281E] text-white shadow-sm transition"
+                >
+                    Monthly Billing
+                </button>
+                <button
+                    id="billing-annual-btn"
+                    onclick="switchBillingCycle('annual')"
+                    class="px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5"
+                >
+                    <span>Annual Billing</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Save 45%</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mt-12 items-stretch">
+
+            <!-- Trial -->
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 pricing-shadow flex flex-col justify-between hover:border-emerald-300 transition duration-200">
+                <div>
+                    <h3 class="text-center font-bold text-lg text-slate-900">
+                        Trial Plan
+                    </h3>
+
+                    <div class="text-center mt-4">
+                        <span class="text-4xl font-extrabold text-slate-900">
+                            $1
+                        </span>
+                        <span class="text-sm text-slate-500 font-medium">
+                            / 7 Days
+                        </span>
+                    </div>
+
+                    <ul class="mt-7 space-y-4 text-xs sm:text-sm text-slate-700">
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Full access to all 5 exit servers</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> 1 Device</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> All WireGuard features included</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <button
+                        onclick="openCheckoutModal('trial')"
+                        class="w-full py-3 rounded-full border-2 border-emerald-600 text-emerald-700 font-semibold hover:bg-emerald-50 transition"
+                    >
+                        Start 7-Day Trial
+                    </button>
+                    <p class="text-center text-xs text-slate-500 mt-3.5">
+                        No credit card required
+                    </p>
+                </div>
+            </div>
+
+            <!-- Monthly (Most Popular) -->
+            <div class="relative bg-white border-2 border-emerald-500 rounded-3xl p-8 pricing-shadow-active flex flex-col justify-between transform md:-translate-y-2">
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#06281E] text-white text-xs font-semibold px-4 py-1 rounded-full shadow-md border border-emerald-500/40">
+                    Most Popular
+                </div>
+
+                <div>
+                    <h3 class="text-center font-bold text-lg text-slate-900 mt-1">
+                        Monthly Plan
+                    </h3>
+
+                    <div class="text-center mt-4">
+                        <span id="price-monthly-val" class="text-4xl font-extrabold text-emerald-600">
+                            $9
+                        </span>
+                        <span id="price-monthly-period" class="text-sm text-slate-500 font-medium">
+                            / Month
+                        </span>
+                    </div>
+
+                    <ul class="mt-7 space-y-4 text-xs sm:text-sm text-slate-700">
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Full access to all 5 exit servers</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Up to 3 Devices</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> High speed & ultra-low latency</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> 24/7 Dedicated Support</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <button
+                        onclick="openCheckoutModal('monthly')"
+                        class="w-full py-3.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold shadow-lg shadow-emerald-600/25 transition"
+                    >
+                        Get Monthly Plan
+                    </button>
+                    <p class="text-center text-xs text-slate-500 mt-3.5">
+                        Cancel anytime with 1 click
+                    </p>
+                </div>
+            </div>
+
+            <!-- Yearly -->
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 pricing-shadow flex flex-col justify-between hover:border-emerald-300 transition duration-200">
+                <div>
+                    <h3 class="text-center font-bold text-lg text-slate-900">
+                        Yearly Plan
+                    </h3>
+
+                    <div class="text-center mt-4">
+                        <span id="price-yearly-val" class="text-4xl font-extrabold text-slate-900">
+                            $5
+                        </span>
+                        <span class="text-sm text-slate-500 font-medium">
+                            / Year
+                        </span>
+                    </div>
+
+                    <ul class="mt-7 space-y-4 text-xs sm:text-sm text-slate-700">
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Full access to all 5 exit servers</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Up to 3 Devices</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Best value for long term</li>
+                        <li class="flex items-center gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Priority Route Optimization</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <button
+                        onclick="openCheckoutModal('yearly')"
+                        class="w-full py-3 rounded-full border-2 border-emerald-600 text-emerald-700 font-semibold hover:bg-emerald-50 transition"
+                    >
+                        Get Yearly Plan
+                    </button>
+                    <p class="text-center text-xs text-slate-500 mt-3.5">
+                        30-day money-back guarantee
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- FEATURES -->
+<!-- ========================================================= -->
+<section id="features" class="py-20 bg-[#F7FCFA] border-t border-emerald-100/60">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6F8F3] border border-[#A7F3D0] text-[#065F46] text-xs font-semibold mb-3">
+                <span>🛡️ High-Performance Architecture</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                Powerful VPN Features
+            </h2>
+            <p class="mt-3 text-slate-600">
+                Designed for speed, privacy, and frictionless mesh connectivity.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+            
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    🔒
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Secure Encryption</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">State-of-the-art WireGuard® encryption protects all your internet packets.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    ⚡
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Fast Connections</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">High-bandwidth 10Gbps exit nodes that maintain blazing download and streaming speeds.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    🌐
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Optimized Exit Nodes</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Strategically deployed exit nodes in India, Singapore, US, Germany, and Japan.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    💻
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Multi-device Support</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Connect your Windows PC, Mac, Linux machine, Android phone, and iPhone simultaneously.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    🚀
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Easy Setup</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Authenticate with Tailscale and switch exit nodes with one click.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    🛡️
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Privacy Focused</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Strict zero-logging policy. We never inspect, record, or sell your private traffic.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    📶
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">Reliable Network</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">99.9% uptime SLA backed by redundant mesh nodes and self-healing routes.</p>
+            </div>
+
+            <div class="bg-white border border-emerald-100/70 rounded-2xl p-6 soft-shadow hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition">
+                <div class="w-12 h-12 rounded-2xl bg-[#E6F8F3] text-emerald-600 flex items-center justify-center text-2xl mb-4 border border-[#A7F3D0]/50">
+                    🎧
+                </div>
+                <h3 class="font-bold text-slate-900 text-base mb-1.5">24/7 Support</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Round-the-clock technical support team ready to assist with setup and routing.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- DOCUMENTATION & SETUP GUIDES -->
+<!-- ========================================================= -->
+<section id="docs" class="py-20 bg-white border-t border-slate-100">
+    <div class="max-w-6xl mx-auto px-5 lg:px-8">
+
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6F8F3] border border-[#A7F3D0] text-[#065F46] text-xs font-semibold mb-3">
+                <span>📚 Quick Start & Setup</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                Documentation & Setup Guides
+            </h2>
+            <p class="mt-3 text-slate-600">
+                Tailscale account setup steps and quick installation guides for all platforms.
+            </p>
+        </div>
+
+        <!-- TAILSCALE ACCOUNT CREATION STEP-BY-STEP CARD -->
+        <div id="tailscale-guide" class="bg-gradient-to-br from-[#E6F8F3]/90 via-[#F0FDF9] to-white border-2 border-emerald-200/80 rounded-3xl p-6 sm:p-8 soft-shadow mb-12">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-emerald-100">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center text-2xl font-bold shadow-md shadow-emerald-600/20">
+                        🔑
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold text-slate-900">How to Create a Tailscale Account</h3>
+                        <p class="text-xs text-slate-600 mt-0.5">Tailscale account banane ke aasan steps (100% Free & No Credit Card)</p>
+                    </div>
+                </div>
+                <a
+                    href="https://login.tailscale.com/start"
+                    target="_blank"
+                    class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#06281E] hover:bg-[#031A13] text-white text-xs sm:text-sm font-semibold shadow-md shadow-black/10 transition whitespace-nowrap"
+                >
+                    <span>Open Tailscale Signup</span>
+                    <span>↗</span>
+                </a>
+            </div>
+
+            <!-- 5 Detailed Steps -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+                
+                <!-- Step 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3">1</div>
+                        <h4 class="font-bold text-slate-900 text-sm">Visit Tailscale</h4>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Go to <a href="https://login.tailscale.com/start" target="_blank" class="text-emerald-600 font-semibold underline">login.tailscale.com/start</a> on your phone or PC browser.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-slate-400 mt-3 block">Step 1 of 5</span>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3">2</div>
+                        <h4 class="font-bold text-slate-900 text-sm">Choose Identity</h4>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Click <strong>"Sign in with Google"</strong> (Gmail), Microsoft, Apple, or GitHub. No separate password needed.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-slate-400 mt-3 block">Step 2 of 5</span>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3">3</div>
+                        <h4 class="font-bold text-slate-900 text-sm">Free Personal Plan</h4>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Tailscale provides a free personal tier with support for up to 100 devices and unlimited WireGuard bandwidth.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-slate-400 mt-3 block">Step 3 of 5</span>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3">4</div>
+                        <h4 class="font-bold text-slate-900 text-sm">Install the App</h4>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Download the Tailscale app on Windows, macOS, Android (Play Store), iOS (App Store), or Linux.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-slate-400 mt-3 block">Step 4 of 5</span>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3">5</div>
+                        <h4 class="font-bold text-slate-900 text-sm">Log in & Connect</h4>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Open the app, log in with your Gmail, and select <strong>Guruji VPN Exit Node</strong> to start browsing securely.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-slate-400 mt-3 block">Step 5 of 5</span>
+                </div>
+
+            </div>
+
+            <!-- Helpful tip banner -->
+            <div class="mt-5 p-4 bg-emerald-100/70 rounded-2xl flex items-center gap-3 text-xs text-emerald-950 border border-emerald-200">
+                <span class="text-lg">💡</span>
+                <span><strong>Pro Tip:</strong> Guruji VPN account banate waqt wahi Gmail use karein jo aapne Tailscale me use kiya hai taaki Exit Node automatically access ho sake.</span>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="bg-[#F7FCFA] border border-emerald-100 rounded-2xl p-6 sm:p-8 mb-12">
+            <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <span>🚀 Quick Workflow Overview</span>
+            </h3>
+            <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-4 text-xs">
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <span class="font-bold text-emerald-600 uppercase">Step 1</span>
+                    <div class="font-bold text-slate-900 mt-1">Create Account</div>
+                    <div class="text-slate-500 mt-0.5">Sign up on Tailscale & Guruji.</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <span class="font-bold text-emerald-600 uppercase">Step 2</span>
+                    <div class="font-bold text-slate-900 mt-1">Install Tailscale</div>
+                    <div class="text-slate-500 mt-0.5">Download client for your OS.</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <span class="font-bold text-emerald-600 uppercase">Step 3</span>
+                    <div class="font-bold text-slate-900 mt-1">Join Network</div>
+                    <div class="text-slate-500 mt-0.5">Log in with your Gmail.</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <span class="font-bold text-emerald-600 uppercase">Step 4</span>
+                    <div class="font-bold text-slate-900 mt-1">Select Exit Node</div>
+                    <div class="text-slate-500 mt-0.5">Choose India or global node.</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <span class="font-bold text-emerald-600 uppercase">Step 5</span>
+                    <div class="font-bold text-slate-900 mt-1">Connect</div>
+                    <div class="text-slate-500 mt-0.5">Enjoy secure browsing!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Platforms (7 cols) -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 soft-shadow">
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Platform Guides</h3>
+                
+                <!-- Tab Buttons -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button onclick="setPlatformTab('account')" id="tab-account" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-[#E6F8F3] text-emerald-700 border border-emerald-200 hover:bg-[#d5f5ec]">🔑 Account Steps</button>
+                    <button onclick="setPlatformTab('windows')" id="tab-windows" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-[#06281E] text-white shadow-sm">Windows</button>
+                    <button onclick="setPlatformTab('linux')" id="tab-linux" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200">Linux</button>
+                    <button onclick="setPlatformTab('macos')" id="tab-macos" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200">macOS</button>
+                    <button onclick="setPlatformTab('android')" id="tab-android" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200">Android</button>
+                    <button onclick="setPlatformTab('ios')" id="tab-ios" class="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200">iOS</button>
+                </div>
+
+                <!-- Platform Tab Content -->
+                <div id="platform-content" class="text-xs sm:text-sm text-slate-700 space-y-3">
+                    <p>1. Download Tailscale from <a href="https://tailscale.com/download/windows" target="_blank" class="text-emerald-600 font-semibold underline">tailscale.com/download</a></p>
+                    <p>2. Launch the app and authenticate with your Guruji VPN email.</p>
+                    <p>3. Right-click the Tailscale tray icon ➔ <strong>Exit Nodes</strong> ➔ select <strong>Guruji VPN India</strong>.</p>
+                    <p>4. Enable "Run Exit Node" and start browsing securely.</p>
+                </div>
+
+                <!-- Copyable command box -->
+                <div class="mt-6 bg-[#06281E] rounded-2xl p-4 text-white border border-white/10">
+                    <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
+                        <span>Terminal Command</span>
+                        <button onclick="copyDocCommand()" class="text-emerald-400 hover:text-emerald-300 font-sans font-semibold">Copy</button>
+                    </div>
+                    <pre id="doc-command-text" class="text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto">tailscale up --exit-node=in-mum-01 --accept-routes</pre>
+                </div>
+            </div>
+
+            <!-- Troubleshooting (5 cols) -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 soft-shadow">
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Troubleshooting</h3>
+                
+                <div class="space-y-3">
+                    <div class="border border-slate-200/80 rounded-2xl p-4">
+                        <div class="font-bold text-xs sm:text-sm text-slate-900">Tailscale account kaise banayein?</div>
+                        <div class="text-xs text-slate-600 mt-1"><a href="#tailscale-guide" class="text-emerald-600 font-bold underline">Upar diye gaye 5 steps dekhein</a>: login.tailscale.com par jaakar apne Gmail se sign in karein.</div>
+                    </div>
+                    <div class="border border-slate-200/80 rounded-2xl p-4">
+                        <div class="font-bold text-xs sm:text-sm text-slate-900">VPN not connecting</div>
+                        <div class="text-xs text-slate-600 mt-1">Restart Tailscale service or run <code>tailscale down</code> followed by <code>tailscale up</code>.</div>
+                    </div>
+                    <div class="border border-slate-200/80 rounded-2xl p-4">
+                        <div class="font-bold text-xs sm:text-sm text-slate-900">Exit node unavailable</div>
+                        <div class="text-xs text-slate-600 mt-1">Verify that your subscription is active in the Dashboard and re-authenticate your Tailscale client.</div>
+                    </div>
+                    <div class="border border-slate-200/80 rounded-2xl p-4">
+                        <div class="font-bold text-xs sm:text-sm text-slate-900">Slow connection speed</div>
+                        <div class="text-xs text-slate-600 mt-1">Switch to a geographically closer node (e.g., India or Singapore) for optimal ping and latency.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- USER DASHBOARD -->
+<!-- ========================================================= -->
+<section id="dashboard" class="py-20 bg-[#F7FCFA] border-t border-emerald-100/60">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+            <div>
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">User Control Center</div>
+                <h2 class="text-3xl font-extrabold text-slate-900">Dashboard</h2>
+                <p id="dash-user-email" class="text-xs sm:text-sm text-slate-600 mt-0.5">Account: user@gurujicorp.org</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button
+                    id="dash-toggle-vpn-btn"
+                    onclick="toggleVpnState()"
+                    class="px-5 py-2.5 rounded-full bg-red-50 text-red-600 border border-red-200 font-semibold text-sm hover:bg-red-100 transition flex items-center gap-2"
+                >
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <span id="dash-toggle-btn-label">Disconnect VPN</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8">
+
+            <!-- Left 7 cols -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <!-- Status Card -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 soft-shadow">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                        <div>
+                            <div class="text-xs text-slate-500">Connection Status</div>
+                            <div id="dash-status-text" class="text-2xl font-extrabold text-emerald-600 mt-0.5">Connected</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500">Virtual Mesh IP</div>
+                            <div id="dash-ip-text" class="text-sm font-mono font-bold text-slate-800">100.84.120.45</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 text-xs">
+                        <div class="bg-[#F7FCFA] p-3.5 rounded-2xl border border-emerald-100/60">
+                            <div class="text-slate-500 text-[11px]">Exit Node</div>
+                            <div id="dash-node-badge" class="font-bold text-slate-900 mt-0.5">🇮🇳 India</div>
+                        </div>
+                        <div class="bg-[#F7FCFA] p-3.5 rounded-2xl border border-emerald-100/60">
+                            <div class="text-slate-500 text-[11px]">Latency</div>
+                            <div id="dash-latency-badge" class="font-bold text-emerald-600 mt-0.5">12 ms</div>
+                        </div>
+                        <div class="bg-[#F7FCFA] p-3.5 rounded-2xl border border-emerald-100/60">
+                            <div class="text-slate-500 text-[11px]">Download</div>
+                            <div id="dash-download-badge" class="font-bold text-slate-900 mt-0.5">185.4 Mbps</div>
+                        </div>
+                        <div class="bg-[#F7FCFA] p-3.5 rounded-2xl border border-emerald-100/60">
+                            <div class="text-slate-500 text-[11px]">Upload</div>
+                            <div id="dash-upload-badge" class="font-bold text-slate-900 mt-0.5">94.2 Mbps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Speed & Diagnostics Card (Obsidian Dark with Radiant Mint Accents) -->
+                <div class="bg-gradient-to-r from-[#06281E] via-[#0D1F1C] to-[#0B171A] text-white rounded-3xl p-6 soft-shadow border border-emerald-500/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <span>⚡ Live Mesh Diagnostics</span>
+                                <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono border border-emerald-500/30">10Gbps Pipeline</span>
+                            </h3>
+                            <p class="text-xs text-slate-300 mt-0.5">Real-time throughput testing with Guruji exit nodes</p>
+                        </div>
+                        <button
+                            id="btn-run-speedtest"
+                            onclick="runSpeedTestDiagnostic()"
+                            class="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs transition shadow-md flex items-center gap-1.5 whitespace-nowrap"
+                        >
+                            <span>Run Test</span>
+                            <span>⚡</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                        <div class="bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+                            <div class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Latency</div>
+                            <div id="diag-latency" class="text-lg font-bold text-emerald-400 mt-0.5">12 ms</div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+                            <div class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Download</div>
+                            <div id="diag-download" class="text-lg font-bold text-teal-300 mt-0.5">185.4 Mbps</div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+                            <div class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Upload</div>
+                            <div id="diag-upload" class="text-lg font-bold text-cyan-300 mt-0.5">94.2 Mbps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exit Nodes Switcher -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 soft-shadow">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <h3 class="text-base font-bold text-slate-900">Change Exit Node</h3>
+                        <span class="text-xs text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">5 Global Regions</span>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-2.5 text-xs">
+                        <button onclick="setNode('India', '🇮🇳', '12 ms')" class="p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50/80 text-emerald-950 font-bold flex items-center justify-between transition">
+                            <span>🇮🇳 India (Mumbai)</span>
+                            <span class="text-[10px] text-emerald-700 font-bold">12 ms</span>
+                        </button>
+                        <button onclick="setNode('Singapore', '🇸🇬', '35 ms')" class="p-3 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold flex items-center justify-between transition">
+                            <span>🇸🇬 Singapore</span>
+                            <span class="text-[10px] text-slate-500">35 ms</span>
+                        </button>
+                        <button onclick="setNode('USA', '🇺🇸', '140 ms')" class="p-3 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold flex items-center justify-between transition">
+                            <span>🇺🇸 USA (NY)</span>
+                            <span class="text-[10px] text-slate-500">140 ms</span>
+                        </button>
+                        <button onclick="setNode('Germany', '🇩🇪', '118 ms')" class="p-3 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold flex items-center justify-between transition">
+                            <span>🇩🇪 Germany (FRA)</span>
+                            <span class="text-[10px] text-slate-500">118 ms</span>
+                        </button>
+                        <button onclick="setNode('Japan', '🇯🇵', '85 ms')" class="p-3 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold flex items-center justify-between transition">
+                            <span>🇯🇵 Japan (Tokyo)</span>
+                            <span class="text-[10px] text-slate-500">85 ms</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 soft-shadow">
+                    <h3 class="text-base font-bold text-slate-900 mb-3">Quick Actions</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-semibold text-center">
+                        <a href="#docs" class="p-3 rounded-2xl border border-slate-200 hover:bg-emerald-50/50 hover:border-emerald-200 text-slate-700 transition">📖 Documentation</a>
+                        <a href="#plans" class="p-3 rounded-2xl border border-slate-200 hover:bg-emerald-50/50 hover:border-emerald-200 text-slate-700 transition">💳 Manage Plan</a>
+                        <button onclick="openAuthKeyModal()" class="p-3 rounded-2xl border border-emerald-200 bg-[#E6F8F3] text-emerald-800 hover:bg-[#d5f5ec] transition">🔑 Auth Key</button>
+                        <a href="#support" class="p-3 rounded-2xl border border-slate-200 hover:bg-emerald-50/50 hover:border-emerald-200 text-slate-700 transition">🎧 Support</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right 5 cols -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Subscription Card -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 soft-shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-slate-900">Subscription</h3>
+                        <span id="dash-sub-status" class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Active</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white rounded-2xl p-5 mb-4 shadow-lg shadow-emerald-600/20">
+                        <div class="text-xs text-emerald-100 font-medium">Current Active Plan</div>
+                        <div id="dash-sub-name" class="text-2xl font-extrabold mt-0.5">Monthly Plan</div>
+                        <div class="text-xs text-emerald-100/90 mt-2">Expires: <strong>2026-10-02</strong> • Auto-Renew Enabled</div>
+                    </div>
+
+                    <button onclick="openCheckoutModal('yearly')" class="w-full py-2.5 border-2 border-emerald-600 text-emerald-700 rounded-full text-xs font-bold hover:bg-emerald-50 transition">
+                        Upgrade or Renew
+                    </button>
+                </div>
+
+                <!-- Devices Card -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 soft-shadow">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <h3 class="font-bold text-slate-900">Connected Devices (<span id="devices-count">3</span>/5)</h3>
+                        <button onclick="openAddDeviceModal()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                            <span>+ Add Device</span>
+                        </button>
+                    </div>
+                    <div id="devices-list-container" class="space-y-2.5 text-xs">
+                        <div class="p-3 bg-slate-50 rounded-2xl flex items-center justify-between border border-slate-100">
+                            <div>
+                                <div class="font-bold text-slate-900">💻 MacBook Pro 16"</div>
+                                <div class="text-[11px] text-slate-500">macOS • Active now</div>
+                            </div>
+                            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold">Active</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-2xl flex items-center justify-between border border-slate-100">
+                            <div>
+                                <div class="font-bold text-slate-900">📱 Samsung Galaxy S24</div>
+                                <div class="text-[11px] text-slate-500">Android • 5m ago</div>
+                            </div>
+                            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold">Connected</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-2xl flex items-center justify-between border border-slate-100">
+                            <div>
+                                <div class="font-bold text-slate-900">🖥️ Windows PC</div>
+                                <div class="text-[11px] text-slate-500">Desktop • Offline</div>
+                            </div>
+                            <span class="px-2.5 py-0.5 bg-slate-200 text-slate-600 rounded-full text-[10px] font-bold">Offline</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
+<footer id="support" class="border-t border-slate-200 bg-white">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-14">
+
+        <div class="grid md:grid-cols-5 gap-10">
+
+            <!-- Brand -->
+            <div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-md shadow-emerald-500/20">
+                        <svg width="22" height="26" viewBox="0 0 24 28" fill="none">
+                            <path d="M12 1L21 5V13C21 19 17.5 24 12 27C6.5 24 3 19 3 13V5L12 1Z" fill="#06281E" />
+                            <path d="M12 5V21" stroke="#00D5A5" stroke-width="2.5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-xl font-extrabold text-slate-900">
+                            Guruji <span class="text-emerald-600">VPN</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500">
+                            Powered by Tailscale
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-600 leading-6 mt-5 max-w-xs">
+                    Secure. Private. Limitless. Your gateway to a better, unrestricted internet experience.
+                </p>
+
+                <div class="flex gap-2.5 mt-5">
+                    <a href="javascript:void(0)" onclick="showToastNotification('Guruji VPN on X (Twitter)', 'info')" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-[#E6F8F3] hover:text-emerald-700 transition font-bold text-sm">
+                        𝕏
+                    </a>
+                    <a href="javascript:void(0)" onclick="showToastNotification('Guruji VPN on GitHub', 'info')" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-[#E6F8F3] hover:text-emerald-700 transition text-sm">
+                        ◉
+                    </a>
+                    <a href="javascript:void(0)" onclick="showToastNotification('Guruji VPN on Telegram', 'info')" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-[#E6F8F3] hover:text-emerald-700 transition text-sm">
+                        ➤
+                    </a>
+                    <a href="mailto:support@gurujicorp.org" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-[#E6F8F3] hover:text-emerald-700 transition text-sm">
+                        ✉
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="font-bold text-sm text-slate-900">Quick Links</h4>
+                <ul class="mt-5 space-y-3 text-sm text-slate-600">
+                    <li><a href="#home" class="hover:text-emerald-600 transition">Home</a></li>
+                    <li><a href="#how-it-works" class="hover:text-emerald-600 transition">How It Works</a></li>
+                    <li><a href="#plans" class="hover:text-emerald-600 transition">Plans</a></li>
+                    <li><a href="#features" class="hover:text-emerald-600 transition">Features</a></li>
+                    <li><a href="#docs" class="hover:text-emerald-600 transition">Documentation</a></li>
+                    <li><a href="#dashboard" class="hover:text-emerald-600 transition">Dashboard</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div>
+                <h4 class="font-bold text-sm text-slate-900">Resources</h4>
+                <ul class="mt-5 space-y-3 text-sm text-slate-600">
+                    <li><a href="#docs" class="hover:text-emerald-600 transition">Setup Guide</a></li>
+                    <li><a href="#docs" class="hover:text-emerald-600 transition">FAQs</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToastNotification('Privacy Policy: Strict zero-log policy.', 'info')" class="hover:text-emerald-600 transition">Privacy Policy</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToastNotification('Terms: Unlimited bandwidth for personal use.', 'info')" class="hover:text-emerald-600 transition">Terms & Conditions</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToastNotification('Refund: 30-day money-back guarantee.', 'info')" class="hover:text-emerald-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4 class="font-bold text-sm text-slate-900">Support</h4>
+                <ul class="mt-5 space-y-3 text-sm text-slate-600">
+                    <li><a href="mailto:support@gurujicorp.org" class="hover:text-emerald-600 transition">Contact Us</a></li>
+                    <li><a href="#docs" class="hover:text-emerald-600 transition">Support Center</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToastNotification('All Exit Nodes Operational (99.99% Uptime)', 'success')" class="hover:text-emerald-600 transition flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Status</a></li>
+                    <li><a href="mailto:abuse@gurujicorp.org" class="hover:text-emerald-600 transition">Report an Issue</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <div class="bg-[#F7FCFA] border border-emerald-100 rounded-2xl p-5">
+                    <h4 class="font-bold text-slate-900 text-sm">Stay Updated</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                        Subscribe to get updates and exclusive offers.
+                    </p>
+
+                    <form id="newsletter-form-inline" onsubmit="handleInlineNewsletter(event)">
+                        <input
+                            type="email"
+                            id="newsletter-email-inline"
+                            placeholder="Enter your email"
+                            class="w-full mt-4 px-4 py-2.5 bg-white border border-slate-300 rounded-full text-xs sm:text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                        />
+                        <button
+                            type="submit"
+                            id="newsletter-btn-inline"
+                            class="w-full mt-2.5 bg-[#06281E] hover:bg-[#031A13] text-white py-2.5 rounded-full font-semibold text-xs sm:text-sm transition transform active:scale-98"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="mt-10 pt-7 border-t border-slate-100 flex flex-col md:flex-row justify-between gap-3 text-xs text-slate-500">
+            <p>© 2026 Guruji VPN. All rights reserved.</p>
+            <p>Made with ❤️ for a better, open internet</p>
+        </div>
+
+    </div>
+</footer>
+
+
+<!-- ========================================================= -->
+<!-- MODALS & TOASTS -->
+<!-- ========================================================= -->
+
+<!-- Auth Modal (Login / Signup) -->
+<div id="auth-modal" class="fixed inset-0 z-[9990] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 soft-shadow border border-slate-100 relative">
+        <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="text-center mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center mx-auto shadow-md shadow-emerald-500/20 mb-3">
+                <svg width="22" height="26" viewBox="0 0 24 28" fill="none">
+                    <path d="M12 1L21 5V13C21 19 17.5 24 12 27C6.5 24 3 19 3 13V5L12 1Z" fill="#06281E" />
+                    <path d="M12 5V21" stroke="#00D5A5" stroke-width="2.5" />
+                </svg>
+            </div>
+            <h3 id="auth-modal-title" class="text-2xl font-extrabold text-slate-900">Welcome Back</h3>
+            <p id="auth-modal-sub" class="text-xs text-slate-500 mt-1">Access your Guruji VPN control panel</p>
+        </div>
+
+        <div class="grid grid-cols-2 p-1 bg-slate-100 rounded-full mb-5 text-xs font-semibold">
+            <button id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2 rounded-full bg-white text-slate-900 shadow-sm">Log In</button>
+            <button id="auth-tab-signup" onclick="switchAuthTab('signup')" class="py-2 rounded-full text-slate-600 hover:text-slate-900">Sign Up</button>
+        </div>
+
+        <div id="auth-error-box" class="hidden mb-4 p-3 rounded-2xl bg-red-50 border border-red-200 text-red-600 text-xs font-medium"></div>
+
+        <button onclick="handleGoogleSignIn()" class="w-full py-2.5 px-4 border border-slate-200 hover:bg-slate-50 rounded-full font-semibold text-xs text-slate-700 flex items-center justify-center gap-2.5 transition mb-4">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Continue with Google</span>
+        </button>
+
+        <form id="auth-modal-form" onsubmit="handleAuthSubmit(event)" class="space-y-3.5 text-xs">
+            <div id="auth-field-name" class="hidden">
+                <label class="block font-semibold text-slate-700 mb-1">Full Name</label>
+                <input type="text" id="input-name" placeholder="John Doe" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+            </div>
+            <div>
+                <label class="block font-semibold text-slate-700 mb-1">Email Address</label>
+                <input type="email" id="input-email" required placeholder="you@gmail.com" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+            </div>
+            <div>
+                <div class="flex items-center justify-between mb-1">
+                    <label class="block font-semibold text-slate-700">Password</label>
+                    <button type="button" onclick="showToastNotification('Password reset link sent to your email.', 'info')" class="text-emerald-600 font-medium hover:underline">Forgot?</button>
+                </div>
+                <input type="password" id="input-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+            </div>
+            <div id="auth-field-confirm" class="hidden">
+                <label class="block font-semibold text-slate-700 mb-1">Confirm Password</label>
+                <input type="password" id="input-confirm" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+            </div>
+            <div id="auth-field-remember" class="flex items-center gap-2">
+                <input type="checkbox" id="check-remember" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                <label for="check-remember" class="text-slate-600">Remember me for 30 days</label>
+            </div>
+            <button type="submit" id="btn-auth-submit" class="w-full py-3 rounded-full bg-[#06281E] hover:bg-[#031A13] text-white font-semibold text-sm shadow-md shadow-black/10 transition">
+                Log In
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Checkout Modal -->
+<div id="checkout-modal" class="fixed inset-0 z-[9990] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 soft-shadow border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+        <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="mb-4">
+            <span class="text-xs font-bold text-emerald-800 bg-[#E6F8F3] border border-[#A7F3D0] px-3 py-1 rounded-full">Secure 256-bit Checkout</span>
+            <h3 class="text-xl font-extrabold text-slate-900 mt-2">Complete Subscription</h3>
+        </div>
+
+        <div class="bg-[#F7FCFA] border border-emerald-100 rounded-2xl p-4 mb-4 text-xs">
+            <div class="flex items-center justify-between pb-2 border-b border-emerald-100">
+                <div>
+                    <div id="checkout-plan-name" class="font-bold text-slate-900 text-sm">Monthly Plan</div>
+                    <div class="text-slate-500">Up to 3 Devices • High speed</div>
+                </div>
+                <div class="text-right">
+                    <div id="checkout-plan-price" class="text-2xl font-extrabold text-emerald-600">$9</div>
+                    <div id="checkout-plan-period" class="text-slate-500">/ Month</div>
+                </div>
+            </div>
+            <div class="pt-2 flex items-center justify-between text-slate-600">
+                <span>Instant Activation</span>
+                <span class="text-emerald-600 font-bold">✓ Ready</span>
+            </div>
+        </div>
+
+        <!-- Payment Method Tabs -->
+        <div class="grid grid-cols-3 p-1 bg-slate-100 rounded-full mb-4 text-xs font-semibold text-center">
+            <button type="button" id="paytab-card" onclick="switchPayTab('card')" class="py-1.5 rounded-full bg-white text-slate-900 shadow-sm">💳 Card</button>
+            <button type="button" id="paytab-upi" onclick="switchPayTab('upi')" class="py-1.5 rounded-full text-slate-600 hover:text-slate-900">📱 UPI / QR</button>
+            <button type="button" id="paytab-crypto" onclick="switchPayTab('crypto')" class="py-1.5 rounded-full text-slate-600 hover:text-slate-900">⚡ Crypto</button>
+        </div>
+
+        <!-- Card Form -->
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-3 text-xs">
+            <div id="pay-card-section" class="space-y-3">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Card Number</label>
+                    <input type="text" id="checkout-card-num" required placeholder="4242 •••• •••• 4242" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Expiry</label>
+                        <input type="text" id="checkout-card-exp" required placeholder="MM / YY" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">CVC</label>
+                        <input type="text" id="checkout-card-cvc" required placeholder="123" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPI QR Section -->
+            <div id="pay-upi-section" class="hidden text-center py-2 space-y-3">
+                <div class="bg-white p-3 rounded-2xl border-2 border-dashed border-emerald-300 inline-block mx-auto shadow-sm">
+                    <svg class="w-36 h-36 mx-auto" viewBox="0 0 100 100" fill="none">
+                        <rect width="100" height="100" fill="white"/>
+                        <!-- QR Mock in Emerald -->
+                        <path d="M10 10H40V40H10V10ZM16 16V34H34V16H16ZM22 22H28V28H22V22ZM60 10H90V40H60V10ZM66 16V34H84V16H66ZM72 22H78V28H72V22ZM10 60H40V90H10V60ZM16 66V84H34V66H16ZM22 72H28V78H22V72ZM60 60H70V70H60V60ZM80 60H90V70H80V60ZM70 70H80V80H70V70ZM60 80H70V90H60V80ZM80 80H90V90H80V80ZM45 10H55V25H45V10ZM45 35H55V55H45V35ZM45 75H55V90H45V75ZM10 45H25V55H10V45ZM35 45H65V55H35V45ZM75 45H90V55H75V45Z" fill="#00D5A5"/>
+                    </svg>
+                </div>
+                <div class="text-xs text-slate-600 font-medium">
+                    Scan with <strong>GPay, PhonePe, Paytm, BHIM</strong>
+                </div>
+                <div class="bg-slate-50 p-2.5 rounded-full font-mono text-[11px] text-slate-700 flex items-center justify-between px-4 border border-slate-200">
+                    <span>upi@gurujivpn</span>
+                    <button type="button" onclick="navigator.clipboard.writeText('upi@gurujivpn'); showToastNotification('UPI ID copied!', 'success')" class="text-emerald-600 font-sans font-bold">Copy</button>
+                </div>
+            </div>
+
+            <!-- Crypto Section -->
+            <div id="pay-crypto-section" class="hidden py-2 space-y-3">
+                <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                    <div class="text-slate-500 text-[11px]">Accepted: USDT (TRC20), BTC, SOL</div>
+                    <div class="font-mono text-xs font-bold text-slate-800 break-all mt-1">TX9zGurujiVpnMeshTRC20Addr77X</div>
+                </div>
+                <div class="text-slate-500 text-[11px]">Instant zero-confirmation activation for crypto payments.</div>
+            </div>
+
+            <button type="submit" id="checkout-submit-btn" class="w-full py-3 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-sm shadow-lg shadow-emerald-600/20 transition">
+                Pay & Activate Plan
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Device Modal -->
+<div id="add-device-modal" class="fixed inset-0 z-[9990] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 soft-shadow border border-slate-100 relative">
+        <button onclick="closeAddDeviceModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="mb-5">
+            <div class="w-11 h-11 rounded-2xl bg-[#E6F8F3] text-emerald-600 border border-[#A7F3D0] flex items-center justify-center text-xl font-bold mb-2">📱</div>
+            <h3 class="text-xl font-extrabold text-slate-900">Add New Device</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Register a phone, computer or router to your Tailscale mesh</p>
+        </div>
+
+        <form onsubmit="handleAddDeviceSubmit(event)" class="space-y-3.5 text-xs">
+            <div>
+                <label class="block font-semibold text-slate-700 mb-1">Device Name</label>
+                <input type="text" id="input-device-name" required placeholder="e.g. Work MacBook Air" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none" />
+            </div>
+            <div>
+                <label class="block font-semibold text-slate-700 mb-1">Device Type</label>
+                <select id="select-device-type" class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:border-emerald-600 outline-none bg-white">
+                    <option value="Laptop">Laptop (macOS / Linux)</option>
+                    <option value="Desktop">Desktop (Windows)</option>
+                    <option value="Android Phone">Android Phone</option>
+                    <option value="iPhone">iPhone / iPad</option>
+                    <option value="Router">OpenWRT Router</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full py-3 rounded-full bg-[#06281E] hover:bg-[#031A13] text-white font-semibold text-sm shadow-md shadow-black/10 transition">
+                Register Device
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Tailscale Auth Key Generator Modal -->
+<div id="authkey-modal" class="fixed inset-0 z-[9990] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 soft-shadow border border-slate-100 relative">
+        <button onclick="closeAuthKeyModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="mb-4">
+            <div class="w-11 h-11 rounded-2xl bg-[#E6F8F3] text-emerald-600 border border-[#A7F3D0] flex items-center justify-center text-xl font-bold mb-2">🔑</div>
+            <h3 class="text-xl font-extrabold text-slate-900">Tailscale Pre-Auth Key</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Generate ephemeral authorization key for headless devices & servers</p>
+        </div>
+
+        <div class="space-y-3 text-xs">
+            <div class="bg-[#06281E] text-emerald-400 p-4 rounded-2xl font-mono text-xs overflow-x-auto relative border border-white/10">
+                <div class="text-slate-400 text-[10px] uppercase tracking-wider mb-1">Your Ephemeral Mesh Auth Key</div>
+                <div id="generated-authkey-val" class="break-all font-bold">tskey-auth-guruji-98a4e17b3c20-ephemeral</div>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                <div class="text-slate-700 font-semibold mb-1">1-Line CLI Connect Command:</div>
+                <pre id="authkey-cmd-text" class="font-mono text-slate-800 text-[11px] overflow-x-auto">sudo tailscale up --authkey=tskey-auth-guruji-98a4e17b3c20 --exit-node=in-mum-01</pre>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="copyAuthKeyCmd()" class="flex-1 py-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-xs transition shadow-sm">
+                    Copy CLI Command
+                </button>
+                <button onclick="generateFreshAuthKey()" class="px-5 py-2.5 rounded-full border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition">
+                    Generate New 🔄
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Scroll-To-Top Button -->
+<button
+    id="scroll-top-btn"
+    onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+    class="fixed bottom-6 left-6 z-40 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md text-emerald-600 soft-shadow border border-emerald-200 flex items-center justify-center text-lg font-bold hover:bg-emerald-600 hover:text-white transition-all duration-300 opacity-0 pointer-events-none transform translate-y-4"
+    aria-label="Scroll to top"
+>
+    ↑
+</button>
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+
+<!-- ========================================================= -->
+<!-- CORE JAVASCRIPT LOGIC -->
+<!-- ========================================================= -->
+<script>
+    // State
+    const AppData = {
+        connected: true,
+        activeNode: 'India (Mumbai)',
+        activeNodeFlag: '🇮🇳',
+        latency: '12 ms',
+        ip: '100.84.120.45',
+        subPlan: 'Monthly Plan',
+        subPrice: '$9/mo'
+    };
+
+    // Toast Notification System
+    function showToastNotification(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        const borderColor = type === 'error' ? 'border-l-red-500 border-red-200' : (type === 'info' ? 'border-l-teal-500 border-teal-200' : 'border-l-emerald-500 border-emerald-200');
+        const icon = type === 'error' ? '✕' : (type === 'info' ? 'ℹ' : '✓');
+        const iconBg = type === 'error' ? 'bg-red-50 text-red-600' : (type === 'info' ? 'bg-[#E6F8F3] text-teal-700' : 'bg-[#E6F8F3] text-emerald-600');
+
+        toast.className = `pointer-events-auto flex items-center gap-3 p-4 bg-white rounded-2xl soft-shadow border border-l-4 ${borderColor} text-slate-900 text-xs sm:text-sm font-medium transition-all duration-300 transform translate-y-2 opacity-0`;
+        toast.innerHTML = `
+            <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold flex-shrink-0 ${iconBg}">
+                ${icon}
+            </div>
+            <div class="flex-1">${message}</div>
+            <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 p-1 font-bold">✕</button>
+        `;
+
+        container.appendChild(toast);
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-2', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+        });
+
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => toast.remove(), 300);
+        }, 3500);
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const bars = document.getElementById('menu-icon-bars');
+        const close = document.getElementById('menu-icon-close');
+        if (menu) {
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                bars?.classList.add('hidden');
+                close?.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                bars?.classList.remove('hidden');
+                close?.classList.add('hidden');
+            }
+        }
+    }
+
+    // Auth Modal
+    let currentAuthTab = 'login';
+    function openAuthModal(tab = 'login') {
+        const modal = document.getElementById('auth-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            switchAuthTab(tab);
+        }
+    }
+
+    function closeAuthModal() {
+        const modal = document.getElementById('auth-modal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+
+    function switchAuthTab(tab) {
+        currentAuthTab = tab;
+        const btnLogin = document.getElementById('auth-tab-login');
+        const btnSignup = document.getElementById('auth-tab-signup');
+        const title = document.getElementById('auth-modal-title');
+        const sub = document.getElementById('auth-modal-sub');
+        const fieldName = document.getElementById('auth-field-name');
+        const fieldConfirm = document.getElementById('auth-field-confirm');
+        const fieldRemember = document.getElementById('auth-field-remember');
+        const submitBtn = document.getElementById('btn-auth-submit');
+        const errBox = document.getElementById('auth-error-box');
+
+        if (errBox) errBox.classList.add('hidden');
+
+        if (tab === 'login') {
+            btnLogin.className = 'py-2 rounded-full bg-white text-slate-900 shadow-sm font-semibold';
+            btnSignup.className = 'py-2 rounded-full text-slate-600 hover:text-slate-900';
+            title.textContent = 'Welcome Back';
+            sub.textContent = 'Access your Guruji VPN control panel';
+            fieldName.classList.add('hidden');
+            fieldConfirm.classList.add('hidden');
+            fieldRemember.classList.remove('hidden');
+            submitBtn.textContent = 'Log In';
+        } else {
+            btnSignup.className = 'py-2 rounded-full bg-white text-slate-900 shadow-sm font-semibold';
+            btnLogin.className = 'py-2 rounded-full text-slate-600 hover:text-slate-900';
+            title.textContent = 'Create an Account';
+            sub.textContent = 'Join Guruji VPN network in under 2 minutes';
+            fieldName.classList.remove('hidden');
+            fieldConfirm.classList.remove('hidden');
+            fieldRemember.classList.add('hidden');
+            submitBtn.textContent = 'Create Account';
+        }
+    }
+
+    function handleAuthSubmit(e) {
+        e.preventDefault();
+        const email = document.getElementById('input-email')?.value?.trim();
+        const pass = document.getElementById('input-password')?.value;
+        const errBox = document.getElementById('auth-error-box');
+
+        if (currentAuthTab === 'signup') {
+            const confirm = document.getElementById('input-confirm')?.value;
+            if (pass !== confirm) {
+                if (errBox) {
+                    errBox.textContent = 'Passwords do not match.';
+                    errBox.classList.remove('hidden');
+                }
+                return;
+            }
+            showToastNotification('Account created successfully!', 'success');
+        } else {
+            showToastNotification('Logged in successfully!', 'success');
+        }
+
+        closeAuthModal();
+        window.location.hash = '#dashboard';
+    }
+
+    function handleGoogleSignIn() {
+        showToastNotification('Authenticated via Google OAuth.', 'success');
+        closeAuthModal();
+        window.location.hash = '#dashboard';
+    }
+
+    // Checkout Modal
+    let activeCheckoutPlan = 'monthly';
+    function openCheckoutModal(plan) {
+        activeCheckoutPlan = plan;
+        const modal = document.getElementById('checkout-modal');
+        const planName = document.getElementById('checkout-plan-name');
+        const planPrice = document.getElementById('checkout-plan-price');
+        const planPeriod = document.getElementById('checkout-plan-period');
+
+        if (plan === 'trial') {
+            planName.textContent = 'Trial Plan';
+            planPrice.textContent = '$1';
+            planPeriod.textContent = '/ 7 Days';
+        } else if (plan === 'yearly') {
+            planName.textContent = 'Yearly Plan';
+            planPrice.textContent = '$5';
+            planPeriod.textContent = '/ Year';
+        } else {
+            planName.textContent = 'Monthly Plan';
+            planPrice.textContent = '$9';
+            planPeriod.textContent = '/ Month';
+        }
+
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    function closeCheckoutModal() {
+        const modal = document.getElementById('checkout-modal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+
+    function handleCheckoutSubmit(e) {
+        e.preventDefault();
+        showToastNotification('Payment verified! Subscription activated.', 'success');
+        closeCheckoutModal();
+        window.location.hash = '#dashboard';
+    }
+
+    // VPN State Toggle
+    function toggleVpnState() {
+        AppData.connected = !AppData.connected;
+        updateVpnUI();
+        if (AppData.connected) {
+            showToastNotification(`Connected to Guruji VPN (${AppData.activeNode})`, 'success');
+        } else {
+            showToastNotification('VPN disconnected.', 'info');
+        }
+    }
+
+    function setNode(name, flag, latency) {
+        AppData.activeNode = name;
+        AppData.activeNodeFlag = flag;
+        AppData.latency = latency;
+        updateVpnUI();
+        showToastNotification(`Switched exit node to ${name} (${flag})`, 'success');
+    }
+
+    function updateVpnUI() {
+        // Hero updates
+        const heroFlag = document.getElementById('hero-node-flag');
+        const heroName = document.getElementById('hero-node-name');
+        const heroDev = document.getElementById('hero-device-status');
+        const heroBadge = document.getElementById('hero-laptop-badge');
+        const heroStatus = document.getElementById('hero-laptop-status');
+
+        if (heroFlag) heroFlag.textContent = AppData.activeNodeFlag;
+        if (heroName) heroName.textContent = AppData.activeNode;
+        if (heroDev) {
+            heroDev.textContent = AppData.connected ? 'Connected' : 'Disconnected';
+            heroDev.className = `text-[11px] font-bold mt-0.5 ${AppData.connected ? 'text-emerald-600' : 'text-slate-400'}`;
+        }
+        if (heroBadge) {
+            heroBadge.textContent = AppData.connected ? '✓' : '✕';
+            heroBadge.className = `w-11 h-11 rounded-full border-2 flex items-center justify-center text-2xl font-bold ${AppData.connected ? 'border-emerald-500 bg-emerald-50 text-emerald-600' : 'border-slate-300 bg-slate-50 text-slate-400'}`;
+        }
+        if (heroStatus) {
+            heroStatus.textContent = AppData.connected ? 'Connected' : 'Disconnected';
+        }
+
+        // Dashboard updates
+        const dashStatus = document.getElementById('dash-status-text');
+        const dashIp = document.getElementById('dash-ip-text');
+        const dashNode = document.getElementById('dash-node-badge');
+        const dashLat = document.getElementById('dash-latency-badge');
+        const dashBtnLabel = document.getElementById('dash-toggle-btn-label');
+        const dashBtn = document.getElementById('dash-toggle-vpn-btn');
+
+        if (dashStatus) {
+            dashStatus.textContent = AppData.connected ? 'Connected' : 'Disconnected';
+            dashStatus.className = `text-2xl font-extrabold mt-0.5 ${AppData.connected ? 'text-emerald-600' : 'text-slate-400'}`;
+        }
+        if (dashIp) dashIp.textContent = AppData.connected ? AppData.ip : 'Not Assigned';
+        if (dashNode) dashNode.textContent = `${AppData.activeNodeFlag} ${AppData.activeNode}`;
+        if (dashLat) dashLat.textContent = AppData.connected ? AppData.latency : '--';
+        if (dashBtnLabel) dashBtnLabel.textContent = AppData.connected ? 'Disconnect VPN' : 'Connect VPN';
+        if (dashBtn) {
+            dashBtn.className = `px-5 py-2.5 rounded-full font-semibold text-sm transition flex items-center gap-2 ${AppData.connected ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-md shadow-emerald-600/20'}`;
+        }
+    }
+
+    // Docs Platform Switcher
+    const platformDocs = {
+        account: {
+            text: `<strong>How to Create a Tailscale Account:</strong><br>1. Go to <a href="https://login.tailscale.com/start" target="_blank" class="text-emerald-600 font-semibold underline">login.tailscale.com/start</a> on your browser.<br>2. Choose <strong>"Sign in with Google"</strong> using your Gmail (or Microsoft/Apple/GitHub).<br>3. Confirm free personal tier (Free forever, up to 100 devices).<br>4. Download and install Tailscale on your devices.<br>5. Log in to the app with the same Gmail and connect to Guruji VPN exit nodes.`,
+            cmd: `Visit https://login.tailscale.com/start to create your free account`
+        },
+        windows: {
+            text: `1. Download Tailscale from <a href="https://tailscale.com/download/windows" target="_blank" class="text-emerald-600 font-semibold underline">tailscale.com/download</a><br>2. Launch the app and authenticate with your Guruji VPN email.<br>3. Right-click the Tailscale tray icon ➔ <strong>Exit Nodes</strong> ➔ select <strong>Guruji VPN India</strong>.<br>4. Enable "Run Exit Node" and start browsing securely.`,
+            cmd: `tailscale up --exit-node=in-mum-01 --accept-routes`
+        },
+        linux: {
+            text: `1. Run the one-line installer script in terminal.<br>2. Authenticate with your Guruji VPN account credentials.<br>3. Run <code>tailscale up --exit-node=in-mum-01</code> to route through our exit node.<br>4. Check status using <code>tailscale status</code>.`,
+            cmd: `curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up --exit-node=in-mum-01`
+        },
+        macos: {
+            text: `1. Install Tailscale from Mac App Store or via <code>brew install --cask tailscale</code>.<br>2. Open Menu Bar icon and sign in.<br>3. Click Exit Nodes ➔ choose <strong>Guruji-India-01</strong> and allow local access.`,
+            cmd: `/Applications/Tailscale.app/Contents/MacOS/Tailscale up --exit-node=in-mum-01`
+        },
+        android: {
+            text: `1. Install Tailscale from Google Play Store.<br>2. Sign in with your registered email.<br>3. Tap three dots (⋮) ➔ Exit Nodes ➔ Choose <strong>Guruji VPN India</strong> ➔ Toggle VPN switch ON.`,
+            cmd: `Available on Google Play Store & F-Droid`
+        },
+        ios: {
+            text: `1. Download Tailscale from Apple App Store on iPhone / iPad.<br>2. Allow iOS VPN profile configuration prompt.<br>3. Tap menu ➔ Exit Nodes ➔ Select <strong>Guruji VPN India</strong>.`,
+            cmd: `Available on Apple App Store`
+        }
+    };
+
+    function setPlatformTab(platform) {
+        ['account', 'windows', 'linux', 'macos', 'android', 'ios'].forEach(p => {
+            const btn = document.getElementById(`tab-${p}`);
+            if (btn) {
+                if (p === platform) {
+                    btn.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-[#06281E] text-white shadow-sm';
+                } else {
+                    btn.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200';
+                }
+            }
+        });
+
+        const content = document.getElementById('platform-content');
+        const cmd = document.getElementById('doc-command-text');
+        if (content && platformDocs[platform]) content.innerHTML = platformDocs[platform].text;
+        if (cmd && platformDocs[platform]) cmd.textContent = platformDocs[platform].cmd;
+    }
+
+    function copyDocCommand() {
+        const cmd = document.getElementById('doc-command-text')?.textContent;
+        if (cmd) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                showToastNotification('Command copied to clipboard!', 'success');
+            }).catch(() => {
+                showToastNotification('Failed to copy.', 'error');
+            });
+        }
+    }
+
+    // Billing Cycle Switcher
+    let activeBillingCycle = 'monthly';
+    function switchBillingCycle(cycle) {
+        activeBillingCycle = cycle;
+        const btnM = document.getElementById('billing-monthly-btn');
+        const btnA = document.getElementById('billing-annual-btn');
+        const priceMonthly = document.getElementById('price-monthly-val');
+        const priceYearly = document.getElementById('price-yearly-val');
+
+        if (cycle === 'annual') {
+            btnA.className = 'px-5 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#06281E] text-white shadow-sm transition flex items-center gap-1.5';
+            btnM.className = 'px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition';
+            if (priceMonthly) priceMonthly.textContent = '$7.50';
+            if (priceYearly) priceYearly.textContent = '$5';
+            showToastNotification('Annual pricing active — Save 45% on all subscriptions!', 'info');
+        } else {
+            btnM.className = 'px-5 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#06281E] text-white shadow-sm transition';
+            btnA.className = 'px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+            if (priceMonthly) priceMonthly.textContent = '$9';
+            if (priceYearly) priceYearly.textContent = '$5';
+        }
+    }
+
+    // Payment Tab Switcher
+    function switchPayTab(tab) {
+        ['card', 'upi', 'crypto'].forEach(t => {
+            const btn = document.getElementById(`paytab-${t}`);
+            const sec = document.getElementById(`pay-${t}-section`);
+            const submitBtn = document.getElementById('checkout-submit-btn');
+
+            if (t === tab) {
+                if (btn) btn.className = 'py-1.5 rounded-full bg-white text-slate-900 shadow-sm font-bold';
+                if (sec) sec.classList.remove('hidden');
+                if (submitBtn) {
+                    if (tab === 'upi') submitBtn.textContent = 'I Have Completed UPI Payment';
+                    else if (tab === 'crypto') submitBtn.textContent = 'Verify Crypto Transaction';
+                    else submitBtn.textContent = 'Pay & Activate Plan';
+                }
+            } else {
+                if (btn) btn.className = 'py-1.5 rounded-full text-slate-600 hover:text-slate-900';
+                if (sec) sec.classList.add('hidden');
+            }
+        });
+    }
+
+    // Speed Test Live Diagnostic
+    let isTestingSpeed = false;
+    async function runSpeedTestDiagnostic() {
+        if (isTestingSpeed) return;
+        isTestingSpeed = true;
+
+        const diagBtn = document.getElementById('btn-run-speedtest');
+        const heroSpeed = document.getElementById('hero-speed-label');
+        const diagLat = document.getElementById('diag-latency');
+        const diagDown = document.getElementById('diag-download');
+        const diagUp = document.getElementById('diag-upload');
+
+        if (diagBtn) diagBtn.innerHTML = `<span>Testing...</span> <span class="animate-spin">⏳</span>`;
+        if (heroSpeed) heroSpeed.textContent = `Pinging mesh...`;
+
+        try {
+            const res = await fetch('/api/vpn/speed-test');
+            const data = await res.json();
+            const metrics = data.metrics || { latency: '11 ms', downloadSpeed: '194.2 Mbps', uploadSpeed: '98.5 Mbps' };
+
+            setTimeout(() => {
+                if (diagLat) diagLat.textContent = metrics.latency;
+                if (diagDown) diagDown.textContent = metrics.downloadSpeed;
+                if (diagUp) diagUp.textContent = metrics.uploadSpeed;
+                if (heroSpeed) heroSpeed.textContent = `Tested: ${metrics.downloadSpeed}`;
+                if (diagBtn) diagBtn.innerHTML = `<span>Run Test</span> <span>⚡</span>`;
+
+                showToastNotification(`Speed test complete: ${metrics.downloadSpeed} down / ${metrics.latency} ping`, 'success');
+                isTestingSpeed = false;
+            }, 600);
+        } catch (e) {
+            setTimeout(() => {
+                const mockSpeed = `${(180 + Math.random() * 40).toFixed(1)} Mbps`;
+                if (heroSpeed) heroSpeed.textContent = `Tested: ${mockSpeed}`;
+                if (diagBtn) diagBtn.innerHTML = `<span>Run Test</span> <span>⚡</span>`;
+                showToastNotification(`Speed test complete: ${mockSpeed} down`, 'success');
+                isTestingSpeed = false;
+            }, 600);
+        }
+    }
+
+    // Add Device Modal
+    function openAddDeviceModal() {
+        const modal = document.getElementById('add-device-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    function closeAddDeviceModal() {
+        const modal = document.getElementById('add-device-modal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+
+    async function handleAddDeviceSubmit(e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('input-device-name');
+        const typeSelect = document.getElementById('select-device-type');
+        const name = nameInput?.value?.trim() || 'New Device';
+        const type = typeSelect?.value || 'Mobile';
+
+        const container = document.getElementById('devices-list-container');
+        const countBadge = document.getElementById('devices-count');
+        const iconMap = {'Laptop': '💻', 'Desktop': '🖥️', 'Android Phone': '📱', 'iPhone': '📱', 'Router': '📡'};
+        const icon = iconMap[type] || '📱';
+
+        if (container) {
+            const newCard = document.createElement('div');
+            newCard.className = 'p-3 bg-slate-50 rounded-2xl flex items-center justify-between border border-slate-100 transition animate-fadeIn';
+            newCard.innerHTML = `
+                <div>
+                    <div class="font-bold text-slate-900">${icon} ${name}</div>
+                    <div class="text-[11px] text-slate-500">${type} • Just added</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold">Connected</span>
+                    <button onclick="this.closest('.p-3').remove(); updateDeviceCount(-1)" class="text-slate-400 hover:text-red-500 font-bold p-1">✕</button>
+                </div>
+            `;
+            container.prepend(newCard);
+        }
+
+        updateDeviceCount(1);
+        closeAddDeviceModal();
+        showToastNotification(`Device '${name}' added to mesh network!`, 'success');
+        if (nameInput) nameInput.value = '';
+
+        try {
+            await fetch('/api/user/devices/add', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ name, type })
+            });
+        } catch (err) {}
+    }
+
+    function updateDeviceCount(diff) {
+        const countBadge = document.getElementById('devices-count');
+        if (countBadge) {
+            let current = parseInt(countBadge.textContent) || 3;
+            countBadge.textContent = Math.max(1, current + diff);
+        }
+    }
+
+    // Auth Key Generator Modal
+    function openAuthKeyModal() {
+        const modal = document.getElementById('authkey-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            generateFreshAuthKey();
+        }
+    }
+
+    function closeAuthKeyModal() {
+        const modal = document.getElementById('authkey-modal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+
+    async function generateFreshAuthKey() {
+        const randomHex = Math.random().toString(16).substring(2, 14);
+        const newKey = `tskey-auth-guruji-${randomHex}-ephemeral`;
+        const keyElem = document.getElementById('generated-authkey-val');
+        const cmdElem = document.getElementById('authkey-cmd-text');
+
+        if (keyElem) keyElem.textContent = newKey;
+        if (cmdElem) cmdElem.textContent = `sudo tailscale up --authkey=${newKey} --exit-node=in-mum-01`;
+
+        try {
+            const res = await fetch('/api/vpn/generate-auth-key', { method: 'POST' });
+            const data = await res.json();
+            if (data.authKey) {
+                if (keyElem) keyElem.textContent = data.authKey;
+                if (cmdElem) cmdElem.textContent = data.instructions || `sudo tailscale up --authkey=${data.authKey} --exit-node=in-mum-01`;
+            }
+        } catch (e) {}
+    }
+
+    function copyAuthKeyCmd() {
+        const cmd = document.getElementById('authkey-cmd-text')?.textContent;
+        if (cmd) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                showToastNotification('Tailscale connect command copied to clipboard!', 'success');
+            }).catch(() => {
+                showToastNotification('Failed to copy command.', 'error');
+            });
+        }
+    }
+
+    // Newsletter inline
+    async function handleInlineNewsletter(e) {
+        e.preventDefault();
+        const input = document.getElementById('newsletter-email-inline');
+        const email = input?.value?.trim();
+        if (!email) {
+            showToastNotification('Please enter your email address.', 'error');
+            return;
+        }
+        try {
+            await fetch('/api/newsletter/subscribe', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ email })
+            });
+        } catch(err) {}
+        showToastNotification('Thank you! You have been subscribed.', 'success');
+        if (input) input.value = '';
+    }
+
+    // Scroll Navbar Shadow & Scroll to Top button
+    window.addEventListener("scroll", function () {
+        const header = document.getElementById("main-header");
+        const scrollBtn = document.getElementById("scroll-top-btn");
+
+        if (header) {
+            if (window.scrollY > 20) {
+                header.classList.add("pt-2");
+                header.classList.remove("pt-4");
+            } else {
+                header.classList.add("pt-4");
+                header.classList.remove("pt-2");
+            }
+        }
+
+        if (scrollBtn) {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                scrollBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                scrollBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                scrollBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        }
+    });
+
+    console.log("Guruji VPN updated with Mint/Emerald SaaS theme & dark floating navbar.");
+</script>
+
+</body>
+</html>
