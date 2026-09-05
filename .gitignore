@@ -1,0 +1,28 @@
+# Python / Flask
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+.env
+
+# Environment & Secrets
+.env.production
+.env.local
+*.pem
+*.key
+*_salt.txt
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test / build artifacts
+.pytest_cache/
